@@ -3,7 +3,7 @@ local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/d
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
 local Window = Fluent:CreateWindow({
-    Title = " Coelho Hub",
+    Title = "tapiiox hub",
     SubTitle = "by mr",
     TabWidth = 160,
     Size = UDim2.fromOffset(580, 460),
@@ -114,7 +114,7 @@ _G.AutoParryActive = false
 
 -- Funções internas do seu script
 local function VerifyBall(Ball)
-    if typeof(Ball) == "Instance" and Ball:IsA("BasePart") and Ball:IsDescendantOf(Balls) and Ball:GetAttribute("realBall")
+    if typeof(Ball) == "Instance" and Ball:IsA("BasePart") and Ball:IsDescendantOf(Balls) and Ball:GetAttribute("realBall") == true then
         return true
     end
 end
@@ -131,6 +131,7 @@ local function Parry()
     end
 end
 
+-- Evento principal (fica escutando as bolas novas)
 Balls.ChildAdded:Connect(function(Ball)
     if not VerifyBall(Ball) then
         return
@@ -157,9 +158,10 @@ Balls.ChildAdded:Connect(function(Ball)
     end)
 end)
 
+-- TOGGLE: Auto Parry / Auto Rebatida
 Tabs.Main:AddToggle("AutoParryToggle", {
     Title = "Auto Parry",
-    Description = "",
+    Description = "Rebate a bola automaticamente quando ela estiver vindo na sua direção",
     Default = false,
     Callback = function(Value)
         _G.AutoParryActive = Value
